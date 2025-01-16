@@ -255,6 +255,17 @@ jobs:
           file_glob: true
           file: ./mihomo/*
 
+      - name: Commit and push `mihomo` branch
+        run: |
+          cd ./mihomo/ || exit 1
+          git init
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git checkout -b mihomo
+          git add . && git commit -m "mihomo geodata 文件更新于 ${update_version}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin mihomo
+
       - name: Release and upload `mihomo-ruleset` assets
         uses: svenstaro/upload-release-action@v2
         with:
@@ -275,9 +286,9 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git checkout -b mihomo-ruleset
-          git add . && git commit -m "规则集文件更新于 ${update_version}"
+          git add . && git commit -m "mihomo rule-set 规则集文件更新于 ${update_version}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git push -f -u origin mihomo-ruleset
+          git push -f origin mihomo-ruleset
 
       - name: Release and upload `sing-box` assets
         uses: svenstaro/upload-release-action@v2
@@ -291,6 +302,17 @@ jobs:
             geodata 文件更新于 ${{ env.update_version }}
           file_glob: true
           file: ./sing-box/*
+
+      - name: Commit and push `sing-box` branch
+        run: |
+          cd ./sing-box/ || exit 1
+          git init
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git checkout -b sing-box
+          git add . && git commit -m "sing-box geodata 文件更新于 ${update_version}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin sing-box
 
       - name: Release and upload `sing-box-ruleset` assets
         uses: svenstaro/upload-release-action@v2
@@ -312,9 +334,9 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git checkout -b sing-box-ruleset
-          git add . && git commit -m "规则集文件更新于 ${update_version}"
+          git add . && git commit -m "sing-box rule_set 规则集文件更新于 ${update_version}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git push -f -u origin sing-box-ruleset
+          git push -f origin sing-box-ruleset
 
       - name: Purge jsDelivr CDN
         run: |
